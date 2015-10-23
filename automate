@@ -1,0 +1,42 @@
+#! /usr/bin/python3
+##automate de AAAT
+delta={0:{'A':1,'T':0,'G':0,'C':0},1:{'A':2,'T':0,'G':0,'C':0},2:{'A':3,'T':0,'G':0,'C':0},3:{'T':4,'A':3,'G':0,'C':0},4:{'A':1,'T':0,'G':0,'C':0}}
+print(delta)
+def recherche(T,delta,len_m):
+  n=len(T)
+  q=0
+  for i in range(0,n):
+    q=d[(q,T[i])] #delta[q][T[i]]
+    if q==len_m:
+      print('occurrence en', i-len_m+1)
+  
+  if i==n-1:
+    print("pas d'occurence")
+  
+
+#print(recherche('ATAAATAAATATACGACTGCAGTCAGCTGATCAGCTGTA',delta,4))
+
+def suf(a,b):
+  """a suffixe b?"""
+  return(a==b[len(b)-len(a):])
+
+#print(suf("rta","ratrarta"))
+
+
+def calcul_fn_trans(pattern,alpha):
+  d={}
+  m=len(pattern)
+  for q in range(0,m+1):
+    for lettre in alpha:
+      k=min(m,q+1)
+      while suf(pattern[0:k],(pattern[0:q]+lettre))==False:
+        k=k-1 
+      d[q,lettre]=k
+  return(d)
+
+  
+##AAA AAB
+#A B
+
+d=calcul_fn_trans("AAB",["A","B"])
+print(recherche("ABAB",d,3))
